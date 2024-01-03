@@ -17,11 +17,12 @@ public class view extends javax.swing.JFrame {
     /**
      * Creates new form view
      */
+   
     public view() {
-        
         initComponents();
+        
     }
-
+ ;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,8 +32,51 @@ public class view extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuBar1 = new java.awt.MenuBar();
+        menu1 = new java.awt.Menu();
+        menu2 = new java.awt.Menu();
+        menuBar2 = new java.awt.MenuBar();
+        menu3 = new java.awt.Menu();
+        menu4 = new java.awt.Menu();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jPopupMenu3 = new javax.swing.JPopupMenu();
+        jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jFileChooser1 = new javax.swing.JFileChooser();
+
+        menu1.setLabel("File");
+        menuBar1.add(menu1);
+
+        menu2.setLabel("Edit");
+        menuBar1.add(menu2);
+
+        menu3.setLabel("File");
+        menuBar2.add(menu3);
+
+        menu4.setLabel("Edit");
+        menuBar2.add(menu4);
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
+
+        jRadioButtonMenuItem2.setSelected(true);
+        jRadioButtonMenuItem2.setText("jRadioButtonMenuItem2");
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jRadioButtonMenuItem3.setSelected(true);
+        jRadioButtonMenuItem3.setText("jRadioButtonMenuItem3");
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jRadioButtonMenuItem4.setSelected(true);
+        jRadioButtonMenuItem4.setText("jRadioButtonMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,43 +114,13 @@ public class view extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        String ffmpegPath = "C:/ffmpeg/bin/ffmpeg.exe"; 
-        
-        File inputFilePath = jFileChooser1.getSelectedFile();
+
+        File inputFilePath = jFileChooser1.getSelectedFile();    
         String fileName = inputFilePath.getName();
         if(!fileName.isEmpty()){
-                        System.out.println(fileName);
-
-                         String outputFilePath = "C:/Videos/"+fileName +".mp4";
-
-                   System.out.println(inputFilePath);
-
-                   try {
-                       String ffmpegCommand =  ffmpegPath +" -i " + inputFilePath + " -c:v copy -c:a copy " + outputFilePath;
-                       Process process = new ProcessBuilder("cmd.exe", "/c", ffmpegCommand)
-                          .redirectErrorStream(true)
-                          .start();
-
-                       // Lê a saída do processo para acompanhar o progresso
-                       StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream());
-                       Thread thread = new Thread(streamGobbler);
-                       thread.start();
-
-                       int exitCode = process.waitFor();
-                       thread.join(); // Aguarda a leitura da saída ser concluída
-
-                       if (exitCode == 0) {
-                           // JOptionPane.showMessageDialog(null,"Conversão concluída com sucesso");
-                           System.out.println("Conversão concluída com sucesso.");
-                       } else {
-                        //  JOptionPane.showMessageDialog(null,"A conversão falhou com código de saída: " + exitCode);
-                         System.err.println("A conversão falhou com código de saída: " + exitCode);
-                       }
-                   } catch (IOException | InterruptedException e) {
-                     e.printStackTrace();
-                   }
+            dispose();
+            selectPath.inputFile.setText(inputFilePath.getAbsolutePath());
         }else{
-            System.out.println("cuzinho preto");
             jFileChooser1.cancelSelection();
         }
        
@@ -149,33 +163,23 @@ public class view extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFileChooser jFileChooser1;
+    protected static javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JPopupMenu jPopupMenu3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
+    private java.awt.Menu menu1;
+    private java.awt.Menu menu2;
+    private java.awt.Menu menu3;
+    private java.awt.Menu menu4;
+    private java.awt.MenuBar menuBar1;
+    private java.awt.MenuBar menuBar2;
     // End of variables declaration//GEN-END:variables
-
-    class StreamGobbler implements Runnable {
-    private final java.io.InputStream inputStream;
-
-    public StreamGobbler(java.io.InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
-    @Override
-    public void run() {
-        try {
-            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Exibe a saída do processo no console
-                //JOptionPane.showMessageDialog(null,line);
-                  System.out.println(line);
-            }
-        } catch (java.io.IOException e) {
-             e.printStackTrace();
-        }
-    }
-}
-
-
 
 }

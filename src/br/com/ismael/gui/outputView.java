@@ -9,7 +9,7 @@ import javax.swing.JFileChooser;
 
 /**
  *
- * @author Usuario
+ * @author ismael221
  */
 public class outputView extends javax.swing.JFrame {
 

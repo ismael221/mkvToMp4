@@ -7,10 +7,11 @@ package br.com.ismael.gui;
 import br.com.ismael.model.StreamGobbler;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Usuario
+ * @author ismael221
  */
 
 
@@ -51,6 +52,8 @@ public class selectPath extends javax.swing.JFrame {
         btnInput = new java.awt.Button();
         btnOutput = new java.awt.Button();
         btnConverter = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        fileName = new javax.swing.JTextField();
 
         jMenu1.setText("jMenu1");
 
@@ -119,32 +122,37 @@ public class selectPath extends javax.swing.JFrame {
         });
 
         btnConverter.setText("Converter");
-        btnConverter.setActionCommand("Converter");
         btnConverter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConverterActionPerformed(evt);
             }
         });
 
+        jLabel3.setText("Novo nome do arquivo:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputFile, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(outputFile, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConverter, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(95, Short.MAX_VALUE))
+                    .addComponent(btnConverter, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(fileName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputFile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                            .addComponent(outputFile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,9 +169,13 @@ public class selectPath extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addComponent(outputFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(fileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addComponent(btnConverter)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(72, 72, 72))
         );
 
         btnConverter.getAccessibleContext().setAccessibleName("btnConverter");
@@ -197,11 +209,12 @@ public class selectPath extends javax.swing.JFrame {
 
     private void btnConverterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConverterActionPerformed
         String ffmpegPath = "C:/ffmpeg/bin/ffmpeg.exe"; 
+        String filename = fileName.getText();
         String fileFormat = ".mp4";
-        String outputFilePath = outputFile.getText();
+        String outputFilePath = outputFile.getText() + "\\" + filename;
         String inputFilePath = inputFile.getText();
         
-
+     System.out.println(outputFilePath + filename + fileFormat);
              try {
                        String ffmpegCommand =  ffmpegPath +" -i " + inputFilePath + " -c:v copy -c:a copy " + outputFilePath+fileFormat;
                        Process process = new ProcessBuilder("cmd.exe", "/c", ffmpegCommand)
@@ -217,11 +230,10 @@ public class selectPath extends javax.swing.JFrame {
                        thread.join(); // Aguarda a leitura da saída ser concluída
 
                        if (exitCode == 0) {
-                           // JOptionPane.showMessageDialog(null,"Conversão concluída com sucesso");
-                           System.out.println("Conversão concluída com sucesso.");
+                            JOptionPane.showMessageDialog(null,"Conversão concluída com sucesso");
                        } else {
-                        //  JOptionPane.showMessageDialog(null,"A conversão falhou com código de saída: " + exitCode);
-                         System.err.println("A conversão falhou com código de saída: " + exitCode);
+                          JOptionPane.showMessageDialog(null,"A conversão falhou com código de saída: " + exitCode);
+                        // System.err.println("A conversão falhou com código de saída: " + exitCode);
                        }
                    } catch (IOException | InterruptedException e) {
                      e.printStackTrace();
@@ -273,6 +285,7 @@ public class selectPath extends javax.swing.JFrame {
     private javax.swing.JButton btnConverter;
     private java.awt.Button btnInput;
     private java.awt.Button btnOutput;
+    private javax.swing.JTextField fileName;
     protected static javax.swing.JTextField inputFile;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JDialog jDialog1;
@@ -280,6 +293,7 @@ public class selectPath extends javax.swing.JFrame {
     private javax.swing.JFrame jFrame2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;

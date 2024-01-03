@@ -6,7 +6,7 @@ package br.com.ismael.model;
 
 /**
  *
- * @author Usuario
+ * @author ismael221
  */
 public class StreamGobbler implements Runnable {
       private final java.io.InputStream inputStream;

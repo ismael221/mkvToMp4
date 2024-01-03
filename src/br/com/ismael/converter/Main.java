@@ -8,7 +8,7 @@ import br.com.ismael.gui.selectPath;
 
 /**
  *
- * @author Usuario
+ * @author ismael221
  */
 public class Main {
 

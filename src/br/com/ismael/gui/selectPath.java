@@ -7,6 +7,7 @@ package br.com.ismael.gui;
 import br.com.ismael.model.StreamGobbler;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 
 /**
@@ -199,6 +200,7 @@ public class selectPath extends javax.swing.JFrame {
     }//GEN-LAST:event_inputFileActionPerformed
 
     private void btnInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInputActionPerformed
+
         view selecionarInput = new view();
         selecionarInput.setVisible(true);
         selecionarInput.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -208,7 +210,16 @@ public class selectPath extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInputActionPerformed
 
     private void btnConverterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConverterActionPerformed
-        String ffmpegPath = "C:/ffmpeg/bin/ffmpeg.exe"; 
+        String currentWorkingDirectory = System.getProperty("user.dir");
+
+        // Constrói o caminho completo para o ffmpeg.exe a partir do diretório de trabalho
+        String ffmpegPath = Paths.get(currentWorkingDirectory, "lib", "ffmpeg.exe").toString();
+
+        // Agora, você pode usar o ffmpegPath conforme necessário no restante do seu código.
+        System.out.println("Caminho para o ffmpeg.exe: " + ffmpegPath);
+
+
+        //String ffmpegPath = "C:/ffmpeg/bin/ffmpeg.exe"; 
         String filename = fileName.getText();
         String fileFormat = ".mp4";
         String outputFilePath = outputFile.getText() + "\\" + filename;
